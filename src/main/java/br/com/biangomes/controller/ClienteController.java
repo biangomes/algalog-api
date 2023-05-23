@@ -19,12 +19,15 @@ public class ClienteController {
 	@PersistenceContext
 	private EntityManager entityManager;		// injeta entitymanager
 
-	@Autowired
 	private ClienteRepository repo;
+
+	@Autowired
+	public ClienteController(ClienteRepository repo) {
+		this.repo=repo;
+	}
 
 	@GetMapping("/clientes")
 	public List<Cliente> listar() {
-		return entityManager.createQuery("from Cliente", Cliente.class)
-			.getResultList();
+		return repo.findAll();
 	}
 }
