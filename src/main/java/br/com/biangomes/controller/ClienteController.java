@@ -32,4 +32,9 @@ public class ClienteController {
 	public List<Cliente> listarPorNome() {
 		return repo.findByNome("Olívia Cordeiro");
 	}
+
+	@GetMapping("/clientes/nome/contem")
+	public List<Cliente> listarPorNomeNaoExato() {
+		return repo.findByNomeContaining("O");
+	}
 }
