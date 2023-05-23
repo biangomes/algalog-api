@@ -27,4 +27,9 @@ public class ClienteController {
 	public List<Cliente> listar() {
 		return repo.findAll();
 	}
+
+	@GetMapping("/clientes/nome")
+	public List<Cliente> listarPorNome() {
+		return repo.findByNome("Olívia Cordeiro");
+	}
 }
