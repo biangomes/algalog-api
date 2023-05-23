@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.biangomes.domain.model.Cliente;
 import br.com.biangomes.domain.repository.ClienteRepository;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @RestController
 public class ClienteController {
 
@@ -20,11 +22,6 @@ public class ClienteController {
 	private EntityManager entityManager;		// injeta entitymanager
 
 	private ClienteRepository repo;
-
-	@Autowired
-	public ClienteController(ClienteRepository repo) {
-		this.repo=repo;
-	}
 
 	@GetMapping("/clientes")
 	public List<Cliente> listar() {
