@@ -2,12 +2,15 @@ package br.com.biangomes.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.biangomes.domain.model.Cliente;
@@ -28,13 +31,14 @@ public class ClienteController {
 		return repo.findAll();
 	}
 
-	@GetMapping("/clientes/nome")
-	public List<Cliente> listarPorNome() {
-		return repo.findByNome("Olívia Cordeiro");
-	}
+	@GetMapping("/clientes/{clienteId}")
+	public ResponseEntity<Cliente> buscar(@PathVariable Long clienteId) {
+		Optional<Cliente> cliente = repo.findById(clienteId);
 
-	@GetMapping("/clientes/nome/contem")
-	public List<Cliente> listarPorNomeNaoExato() {
-		return repo.findByNomeContaining("O");
+		if (cliente.isPresent()) {
+			return ResponseEntity.ok(cliente.get());
+		}
+
+		return ResponseEntity.notFound().build();
 	}
 }
